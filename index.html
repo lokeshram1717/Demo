@@ -32,11 +32,11 @@
     }
 
     .card1 {
-      width: 420px;
+      width: 440px;
       max-width: 92vw;
-      padding: 28px;
+      padding: 28px 24px;
       border-radius: 22px;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, 0.9);
       box-shadow: 0 18px 45px rgba(0,0,0,0.12);
       backdrop-filter: blur(10px);
       text-align: center;
@@ -48,33 +48,37 @@
       font-size: 28px;
       color: #ff2d86;
       margin-bottom: 10px;
-      font-weight: 800;
+      font-weight: 900;
     }
 
     .card1 p {
       font-size: 16px;
       color: #444;
       margin-bottom: 18px;
+      font-weight: 600;
     }
 
+    /* Button area (NO will run inside this box only) */
     .btn-row {
       display: flex;
       justify-content: center;
-      gap: 16px;
+      gap: 14px;
       margin-top: 18px;
       position: relative;
-      flex-wrap: wrap; /* ✅ prevents overlap */
+      width: 100%;
+      height: 110px; /* enough room for NO movement */
     }
 
+    /* Smaller buttons */
     button {
       border: none;
       cursor: pointer;
-      padding: 14px 22px;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 800;
       transition: transform 0.2s ease, box-shadow 0.2s ease;
-      min-width: 120px;
+      min-width: 95px;
       user-select: none;
     }
 
@@ -94,13 +98,13 @@
       box-shadow: 0 12px 28px rgba(255, 45, 134, 0.32);
     }
 
-    /* NO button starts normal */
+    /* NO button starts normal beside YES */
     #noBtn {
       background: #fff;
       color: #ff2d86;
       border: 2px solid rgba(255, 45, 134, 0.35);
       box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-      position: relative; /* ✅ normal first */
+      position: relative;
       left: 0;
       top: 0;
       z-index: 6;
@@ -110,12 +114,14 @@
     @media (max-width: 420px) {
       .btn-row {
         flex-direction: column;
-        gap: 12px;
+        height: 150px;
+        gap: 10px;
+        align-items: center;
       }
 
       button {
         width: 100%;
-        max-width: 260px;
+        max-width: 220px;
       }
     }
 
@@ -179,9 +185,9 @@
     .love-card {
       width: 860px;
       max-width: 96vw;
-      padding: 24px;
+      padding: 22px;
       border-radius: 26px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.85);
       box-shadow: 0 20px 60px rgba(0,0,0,0.14);
       border: 1px solid rgba(255, 45, 134, 0.18);
       backdrop-filter: blur(12px);
@@ -205,7 +211,7 @@
 
     .love-card .line1 {
       font-size: 18px;
-      font-weight: 700;
+      font-weight: 800;
       color: #222;
       margin-bottom: 10px;
     }
@@ -214,13 +220,13 @@
       font-size: 16px;
       color: #444;
       margin-bottom: 8px;
-      font-weight: 600;
+      font-weight: 700;
     }
 
     .love-card .line3 {
       font-size: 18px;
       color: #111;
-      font-weight: 800;
+      font-weight: 900;
       margin-bottom: 16px;
     }
 
@@ -234,8 +240,8 @@
     }
 
     .img-box {
-      width: 270px;
-      height: 210px;
+      width: 260px;
+      height: 200px;
       border-radius: 18px;
       overflow: hidden;
       border: 2px solid rgba(255, 45, 134, 0.18);
@@ -288,7 +294,7 @@
       <h1>Will you be my Valentine? 💘</h1>
       <p>Choose wisely 😌💖</p>
 
-      <div class="btn-row" id="btnArea">
+      <div class="btn-row">
         <button id="yesBtn">Yes 💖</button>
         <button id="noBtn">No 😝</button>
       </div>
@@ -297,7 +303,6 @@
 
   <!-- PAGE 2 -->
   <div class="page2" id="page2">
-
     <div class="sparkle-layer" id="sparkleLayer"></div>
 
     <div class="love-card">
@@ -327,37 +332,43 @@
     const page1 = document.getElementById("page1");
     const page2 = document.getElementById("page2");
 
-    // ---------------- NO button full-screen run AFTER first try ----------------
+    // ---------------- NO button move ONLY inside the button box ----------------
     let noStartedRunning = false;
 
     function moveNoButtonFar() {
-      const btnRect = noBtn.getBoundingClientRect();
-      const yesRect = yesBtn.getBoundingClientRect();
+      const row = document.querySelector(".btn-row");
 
-      const screenW = window.innerWidth;
-      const screenH = window.innerHeight;
-
-      const padding = 20;
-
-      // After first run: make it fixed so it can jump anywhere
+      // first time: convert NO into absolute so it can move inside the row
       if (!noStartedRunning) {
         noStartedRunning = true;
-        noBtn.style.position = "fixed";
-        noBtn.style.zIndex = "999";
+        noBtn.style.position = "absolute";
+        noBtn.style.zIndex = "10";
       }
+
+      const rowRect = row.getBoundingClientRect();
+      const yesRect = yesBtn.getBoundingClientRect();
+
+      const btnW = noBtn.offsetWidth;
+      const btnH = noBtn.offsetHeight;
+
+      const padding = 8;
+
+      const maxX = rowRect.width - btnW - padding;
+      const maxY = rowRect.height - btnH - padding;
 
       let x, y, dist;
 
       do {
-        x = Math.random() * (screenW - btnRect.width - padding);
-        y = Math.random() * (screenH - btnRect.height - padding);
+        x = Math.random() * maxX;
+        y = Math.random() * maxY;
 
+        // distance from YES so it never overlaps
         dist = Math.hypot(
-          (x + btnRect.width / 2) - (yesRect.left + yesRect.width / 2),
-          (y + btnRect.height / 2) - (yesRect.top + yesRect.height / 2)
+          (rowRect.left + x + btnW / 2) - (yesRect.left + yesRect.width / 2),
+          (rowRect.top + y + btnH / 2) - (yesRect.top + yesRect.height / 2)
         );
 
-      } while (dist < 180);
+      } while (dist < 120);
 
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
@@ -400,7 +411,7 @@
       setTimeout(() => h.remove(), 8000);
     }
 
-    setInterval(spawnPage1Heart, 500);
+    setInterval(spawnPage1Heart, 520);
 
     // ---------------- Page2 sparkles (FULL SCREEN) ----------------
     const sparkleLayer = document.getElementById("sparkleLayer");
@@ -427,4 +438,3 @@
 
 </body>
 </html>
-
