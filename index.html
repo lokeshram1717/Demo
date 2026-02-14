@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valentine 💖</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+
+    /* ---------------- PAGE 1 ---------------- */
+    .page1 {
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ffe6f0, #fff3f7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card1 {
+      width: 420px;
+      max-width: 92vw;
+      padding: 28px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+      backdrop-filter: blur(10px);
+      text-align: center;
+      border: 1px solid rgba(255, 105, 180, 0.25);
+      z-index: 5;
+    }
+
+    .card1 h1 {
+      font-size: 28px;
+      color: #ff2d86;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .card1 p {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 18px;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 18px;
+      position: relative;
+      flex-wrap: wrap; /* ✅ prevents overlap */
+    }
+
+    button {
+      border: none;
+      cursor: pointer;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      min-width: 120px;
+      user-select: none;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #yesBtn {
+      background: linear-gradient(135deg, #ff2d86, #ff5bb1);
+      color: white;
+      box-shadow: 0 10px 25px rgba(255, 45, 134, 0.25);
+      z-index: 5;
+    }
+
+    #yesBtn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(255, 45, 134, 0.32);
+    }
+
+    /* NO button starts normal */
+    #noBtn {
+      background: #fff;
+      color: #ff2d86;
+      border: 2px solid rgba(255, 45, 134, 0.35);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+      position: relative; /* ✅ normal first */
+      left: 0;
+      top: 0;
+      z-index: 6;
+    }
+
+    /* Mobile: stack buttons nicely */
+    @media (max-width: 420px) {
+      .btn-row {
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      button {
+        width: 100%;
+        max-width: 260px;
+      }
+    }
+
+    /* cute floating hearts page1 */
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      opacity: 0.55;
+      animation: floatHearts 7s linear infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    @keyframes floatHearts {
+      0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.55; }
+      100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ---------------- PAGE 2 ---------------- */
+    .page2 {
+      height: 100vh;
+      width: 100vw;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #fff1f7, #ffd1e6, #ffe6f0);
+    }
+
+    /* FULL PAGE floating emojis */
+    .sparkle-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 22px;
+      opacity: 0.55;
+      animation: floatUp linear infinite;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) rotate(0deg);
+        opacity: 0;
+      }
+      10% { opacity: 0.65; }
+      100% {
+        transform: translateY(-140px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .love-card {
+      width: 860px;
+      max-width: 96vw;
+      padding: 24px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.14);
+      border: 1px solid rgba(255, 45, 134, 0.18);
+      backdrop-filter: blur(12px);
+      z-index: 5;
+      position: relative;
+      text-align: center;
+      animation: popIn 0.7s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.88); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .love-card h2 {
+      font-size: 32px;
+      color: #ff2d86;
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .love-card .line1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 10px;
+    }
+
+    .love-card .line2 {
+      font-size: 16px;
+      color: #444;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .love-card .line3 {
+      font-size: 18px;
+      color: #111;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    /* images */
+    .images-row {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 8px;
+      flex-wrap: nowrap;
+    }
+
+    .img-box {
+      width: 270px;
+      height: 210px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 2px solid rgba(255, 45, 134, 0.18);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+      background: #fff;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: white;
+    }
+
+    /* Page2 Mobile */
+    @media (max-width: 720px) {
+      .love-card {
+        padding: 18px;
+      }
+
+      .love-card h2 {
+        font-size: 26px;
+      }
+
+      .love-card .line1 {
+        font-size: 16px;
+      }
+
+      .love-card .line2 {
+        font-size: 14px;
+      }
+
+      .love-card .line3 {
+        font-size: 16px;
+      }
+
+      .img-box {
+        width: 44vw;
+        height: 165px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- PAGE 1 -->
+  <div class="page1" id="page1">
+    <div class="card1">
+      <h1>Will you be my Valentine? 💘</h1>
+      <p>Choose wisely 😌💖</p>
+
+      <div class="btn-row" id="btnArea">
+        <button id="yesBtn">Yes 💖</button>
+        <button id="noBtn">No 😝</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page2" id="page2">
+
+    <div class="sparkle-layer" id="sparkleLayer"></div>
+
+    <div class="love-card">
+      <h2>Yayyyyy! 💕✨</h2>
+
+      <div class="line1">You chosen the right one 😆😂</div>
+      <div class="line2">Good for you 😌💖</div>
+      <div class="line2">Lucky to have you in my life 🥹🌸</div>
+      <div class="line3">I love you bangaram 😘❤️💍</div>
+
+      <div class="images-row">
+        <div class="img-box">
+          <img src="proposal.png" alt="Proposal">
+        </div>
+
+        <div class="img-box">
+          <img src="kiss.png" alt="Kiss">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+
+    const page1 = document.getElementById("page1");
+    const page2 = document.getElementById("page2");
+
+    // ---------------- NO button full-screen run AFTER first try ----------------
+    let noStartedRunning = false;
+
+    function moveNoButtonFar() {
+      const btnRect = noBtn.getBoundingClientRect();
+      const yesRect = yesBtn.getBoundingClientRect();
+
+      const screenW = window.innerWidth;
+      const screenH = window.innerHeight;
+
+      const padding = 20;
+
+      // After first run: make it fixed so it can jump anywhere
+      if (!noStartedRunning) {
+        noStartedRunning = true;
+        noBtn.style.position = "fixed";
+        noBtn.style.zIndex = "999";
+      }
+
+      let x, y, dist;
+
+      do {
+        x = Math.random() * (screenW - btnRect.width - padding);
+        y = Math.random() * (screenH - btnRect.height - padding);
+
+        dist = Math.hypot(
+          (x + btnRect.width / 2) - (yesRect.left + yesRect.width / 2),
+          (y + btnRect.height / 2) - (yesRect.top + yesRect.height / 2)
+        );
+
+      } while (dist < 180);
+
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+    // Desktop hover
+    noBtn.addEventListener("mouseenter", moveNoButtonFar);
+
+    // Mobile touch
+    noBtn.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      moveNoButtonFar();
+    });
+
+    // Block click
+    noBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      moveNoButtonFar();
+    });
+
+    // YES click -> go to page2
+    yesBtn.addEventListener("click", () => {
+      page1.style.display = "none";
+      page2.style.display = "flex";
+      createSparkles();
+    });
+
+    // ---------------- Page1 hearts background ----------------
+    const page1Hearts = ["💗","💖","💘","💞","💕","❤️"];
+
+    function spawnPage1Heart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.innerText = page1Hearts[Math.floor(Math.random() * page1Hearts.length)];
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.animationDuration = (5 + Math.random() * 4) + "s";
+      h.style.fontSize = (14 + Math.random() * 18) + "px";
+      document.body.appendChild(h);
+
+      setTimeout(() => h.remove(), 8000);
+    }
+
+    setInterval(spawnPage1Heart, 500);
+
+    // ---------------- Page2 sparkles (FULL SCREEN) ----------------
+    const sparkleLayer = document.getElementById("sparkleLayer");
+    const sparkles = ["💖","🌸","🌷","💐","✨","🎉","🎊","💝","😍","🥰","😘","❤️","💍"];
+
+    function createSparkles() {
+      sparkleLayer.innerHTML = "";
+
+      for (let i = 0; i < 55; i++) {
+        const s = document.createElement("div");
+        s.className = "sparkle";
+        s.innerText = sparkles[Math.floor(Math.random() * sparkles.length)];
+
+        s.style.left = Math.random() * 100 + "vw";
+        s.style.top = (80 + Math.random() * 40) + "vh";
+        s.style.animationDuration = (5 + Math.random() * 6) + "s";
+        s.style.fontSize = (16 + Math.random() * 18) + "px";
+        s.style.animationDelay = (Math.random() * 3) + "s";
+
+        sparkleLayer.appendChild(s);
+      }
+    }
+  </script>
+
+</body>
+</html>
